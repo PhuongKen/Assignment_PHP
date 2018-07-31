@@ -27,7 +27,7 @@
     </style>
 </head>
 <body class="container">
-<h2>Product Form</h2>
+<h2>Edit Form</h2>
 <form action="/product/{{$products -> id}}" method="POST" class="container">
     @method('PUT')
     {{csrf_field()}}
@@ -48,11 +48,11 @@
         Image <input type="text" name="thumbnail" value="{{$products -> thumbnail}}">
     </div>
     <div class="form-group description">
-        Description <textarea name="description" id="" cols="30" rows="10">{{$products -> description}}</textarea>
+        Description <textarea name="description" id="" id="" cols="23" rows="5">{{$products -> description}}</textarea>
     </div>
     <div>
-        <input type="submit" value="Save">
-        <input type="reset" value="Reset">
+        <input type="submit" value="Save" style="background-color: #4dc0b5">
+        <input type="reset" value="Reset" style="background-color: #ffed4a">
     </div>
 </form>
 </body>
