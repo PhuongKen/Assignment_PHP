@@ -45,8 +45,7 @@ class ProductController extends Controller
         $product -> thumbnail = Input::get('thumbnail');
         $product -> category = Input::get('category');
         $product -> save();
-        $product = product::all();
-        return redirect('/product/show}');
+        return redirect('/product');
     }
 
     /**
@@ -69,7 +68,11 @@ class ProductController extends Controller
      */
     public function edit($id)
     {
-        //
+       $productedit = product::find($id);
+        if($productedit == null){
+            return 'Sản phẩm không tồn tại hoặc đã bị xóa.';
+        }
+        return view('Product.edit') -> with('products', $productedit);
     }
 
     /**
@@ -81,7 +84,17 @@ class ProductController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $product = product::find($id);
+        if($product == null){
+            return 'Sản phẩm không tồn tại hoặc đã bị xóa.';
+        }
+        $product -> title = Input::get('name');
+        $product -> description = Input::get('description');
+        $product -> price = Input::get('price');
+        $product -> thumbnail = Input::get('thumbnail');
+        $product -> category = Input::get('category');
+        $product -> save();
+        return redirect('/product');
     }
 
     /**
@@ -92,6 +105,10 @@ class ProductController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $product = product::destroy($id);
+        if($product == null){
+            return response('Sản phẩm không tồn tại hoặc đã bị xóa', '/404');
+        }
+        return response('delete', 200);
     }
 }

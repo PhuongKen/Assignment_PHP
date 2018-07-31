@@ -26,7 +26,6 @@
 <body>
 
 <div class="container">
-    {{csrf_field()}}
     <h4 style="text-align: center; margin-bottom: 20px">List Form</h4>
     <div class="row">
         @foreach($products as $product)
@@ -36,7 +35,7 @@
                 <h6 class="text-center">{{ $product -> price }}$</h6>
                 <h6 class="text-center">{{ $product -> description }}</h6>
                 <div class="text-center add">
-                    <a href="/product/edit/{{$product -> id}}">Sửa</a><a href="{{$product -> id}}" class="btn-delete">Xóa</a>
+                    <a href="/product/{{$product -> id}}/edit">Sửa</a>&nbsp;<a href="{{$product -> id}}" class="btn-delete">Xóa</a>
                 </div>
             </div>
         @endforeach
@@ -49,8 +48,11 @@
         var user_confirm = confirm('Are you sure');
         if(user_confirm){
             $.ajax({
-                url: '/product/delete/' + productId,
-                method: 'GET',
+                url: '/product/' + productId,
+                method: 'DELETE',
+                data: {
+                    '_token': "{{ csrf_token() }}"
+                },
                 success:function (response) {
                     alert('Xoa thanh cong')
                     window.location.reload();
